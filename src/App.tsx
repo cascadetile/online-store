@@ -7,10 +7,10 @@ import { Home } from 'pages/home/Home';
 import { Cart } from 'pages/cart/Cart'; 
 import { ProductPage } from 'pages/productPage/ProductPage';
 import { Page404 } from 'pages/page404/Page404';
-import { Footer } from 'components/footer/Footer';
-import { Header } from 'components/header/Header';
+import { Footer } from 'layouts/Footer';
+import { Header } from 'layouts/Header';
 
-import './app.css';
+import './style.css';
 
 export const App = () => {
   return (

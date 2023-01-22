@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-
 import { getCartProducts, getTotalPrice } from 'store/slices/cart.slice';
 import { useAppSelector } from 'store/store.hooks';
+import { PurchaseForm } from 'layouts/PurchaseForm';
+import { Header2 } from 'components/Header2';
+import { TextLine } from 'components/TextLine';
+import { colorRed } from 'utils/colors';
+import { Button } from 'components/Button';
+import { PromocodeBlock } from 'layouts/PromocodeBlock';
 
-import { PurchaseForm } from 'components/purchase-form/purchaseForm';
-
-import './CartSummary.css';
+import './style.css';
 
 export const CartSummary: React.FC = () => {
 
@@ -71,27 +74,83 @@ export const CartSummary: React.FC = () => {
   return (
     <>
       <div className='cart-summary'>
-        <h2>Summary</h2>
-        <p>Products: <span>{itemsInCart}</span></p>
+        <Header2 title={'Summary'}/>
+        <TextLine 
+          title={'Products:'} 
+          description={itemsInCart} 
+          styleSpan={{color: `${colorRed}`}}
+          styleText={{fontSize: '1.2rem', fontWeight: 300}}
+        />
         <div className='promocode-container'>
-          <p style={{textDecoration: `${activeRS || activeTA ? 'line-through' : ''}`}}>Total: <span>${totalPrice}</span></p>
-          {activeRS || activeTA ? <p>Total: <span>${Math.ceil(totalPrice * discount)}</span></p> : <></>}
+          <TextLine 
+            title={'Total:'} 
+            description={totalPrice} 
+            styleText={{textDecoration: `${activeRS || activeTA ? 'line-through' : ''}`, fontSize: '1.2rem', fontWeight: 300}}
+          />
+          {!(activeRS || activeTA) ? <></> :
+            <TextLine 
+              title={'Total:'} 
+              description={Math.ceil(totalPrice * discount)}
+            />
+          }
         </div>
         {activeRS || activeTA ?
         <div className='promocode-active'>
-          <h2>Active Promocodes</h2>
-          {activeTA ? <div className='promocode-block'><p>10% discount 'TA'</p><button onClick={() => {setActiveTA(false); setDiscount(discount + 0.1);}}>remove</button></div> : <></>}
-          {activeRS ? <div className='promocode-block'><p>10% discount 'RS'</p><button onClick={() => {setActiveRS(false); setDiscount(discount + 0.1);}}>remove</button></div> : <></>}
+          <Header2 title={'Active Promocodes'}/>
+          {!activeTA ? <></> : 
+            <PromocodeBlock
+              setActive={setActiveTA} 
+              setDiscount={setDiscount}
+              discount={discount + 0.1}
+              text={'TA'}
+              boolean={false}
+            />
+          }
+          {!activeRS ? <></> :
+            <PromocodeBlock
+              setActive={setActiveRS}
+              setDiscount={setDiscount}
+              discount={discount + 0.1}
+              text={'RS'}
+              boolean={false}
+            />
+          }
         </div>
         : <></>}
         <div className='cart-summary-input'>
           <input type='text' id='promocode' placeholder='Enter promo code' onChange={(e) => setValue(e.target.value)} value={value}/>
-          <button onClick={() => setValue('')}>x</button>
+          <Button
+            fn={() => setValue('')}
+            children={'x'}
+          />
         </div>
-        {promocodeTA ? (activeTA ? <></> : <div className='promocode-block'><p>10% discount 'TA'</p><button onClick={() => {setActiveTA(true); setDiscount(discount - 0.1);}}>add</button></div>) : <></>}
-        {promocodeRS ? (activeRS ? <></> : <div className='promocode-block'><p>10% discount 'RS'</p><button onClick={() => {setActiveRS(true); setDiscount(discount - 0.1);}}>add</button></div>) : <></>}
-        <p>** promocodes: "TA", "RS"</p>
-        <button onClick={() => setModalVisibility(true)}>Buy Now</button>
+        {promocodeTA ? 
+          (activeTA ? <></> : 
+            <PromocodeBlock
+              setActive={setActiveTA} 
+              setDiscount={setDiscount}
+              discount={discount - 0.1}
+              text={'TA'}
+              boolean={true}
+            />
+          ) : <></>
+        }
+        {promocodeRS ? 
+          (activeRS ? <></> : 
+            <PromocodeBlock
+              setActive={setActiveRS}
+              setDiscount={setDiscount}
+              discount={discount - 0.1}
+              text={'RS'}
+              boolean={true}
+            />
+          ) : <></>
+        }
+        <TextLine title={`** promocodes: "TA", "RS"`}/>
+        <Button
+          fn={() => setModalVisibility(true)}
+          children={'Buy Now'}
+        />
       </div>
       {isModalVisible && <PurchaseForm onSetModalVisibility={setModalVisibility}></PurchaseForm>}
     </>

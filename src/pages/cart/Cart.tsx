@@ -4,8 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'store/store.hooks'; 
 import { getCartProducts } from 'store/slices/cart.slice';
 
-import { CartForCart } from 'components/cardForCart/CartForCart';
-import { CartSummary } from 'layouts/CartSummary/CartSummary';
+import { CartForCart } from 'layouts/ProductCardForCart';
+import { CartSummary } from 'layouts/CartSummary';
 
 import './cart.css';
 

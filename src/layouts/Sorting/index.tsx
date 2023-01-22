@@ -6,11 +6,17 @@ import { sortProducts } from 'store/slices/products.slice';
 import { initialState } from 'store/database/products';
 import { getProductsSelector, getUnfilteredProducts } from 'store/slices/products.slice';
 import { brandHandler, categoryHandler, resetFilters, setBrands, setCategories, setPriceRange, setStockRange } from 'store/slices/filters.slice';
-import { IProduct } from 'store/interface/IProduct'; 
+import { IProduct } from 'interface'; 
 
-import './sort.css';
+import './style.css';
 
-import { RangeSlider } from 'components/rangeSlider/rangeSlider';
+import { RangeSlider } from 'layouts/RangeSlider';
+import { Header2 } from 'components/Header2';
+import { Button } from 'components/Button';
+import { TextLine } from 'components/TextLine';
+import { colorGray } from 'utils/colors';
+import { SelectSort } from 'layouts/SelectSort';
+import { RangeSort } from 'layouts/RangeSort';
 
 
 export const Filters: React.FC = () => {
@@ -176,19 +182,9 @@ export const Filters: React.FC = () => {
   return (
     <>
       <div className='filters__wrapper'>
-        <div className='select-sort__wrapper'>
-          <select value={selectValue} onChange={(e) => handleSortSelect(e.target.value)} className='select-sort'>
-            <option value="choose sort">Choose sort</option>
-            <option value="big ratings first">Big ratings first</option>
-            <option value="low ratings first">Low ratings first</option>
-            <option value="big price first">Big price first</option>
-            <option value="low price first">Low price first</option>
-            <option value="big discount first">Big discount first</option>
-            <option value="low discount first">Low discount first</option>
-          </select>
-        </div>
+        <SelectSort value={selectValue} fn={(e) => handleSortSelect(e.target.value)}/>
         <div>
-          <h2>Brands</h2>
+          <Header2 title={'Brands'}/>
           <div className='div__container'>
             {brandList.map(brand => 
               <label className='label' key={brand}>
@@ -199,7 +195,7 @@ export const Filters: React.FC = () => {
           </div>
         </div>
         <div>
-          <h2>Category</h2>
+          <Header2 title={'Category'}/>
           <div className='div__container'>
             {categoryList.map(category => 
               <label className='label' key={category}>
@@ -209,25 +205,39 @@ export const Filters: React.FC = () => {
             )}
           </div>
         </div>
-        <div className='range'>
-          <h2>price range</h2>
-          <RangeSlider max={maxPrice} min={minPrice} value={priceValue} why={'price'}></RangeSlider>
-          <div className='price-range'>
-            <p>${priceRange[0] || minPrice}</p>
-            <p>${priceRange[1] || maxPrice}</p>
-          </div>
-        </div>
-        <div className='range'>
-          <h2>stock range</h2>
-          <RangeSlider max={maxStock} min={minStock} value={stockValue} why={'stock'}></RangeSlider>
-          <div className='price-range'>
-            <p>{stockRange[0] || minStock}</p>
-            <p>{stockRange[1] || maxStock}</p>
-          </div>
-        </div>
-        <button onClick={filtersReset}>Reset Filters</button>
-        <button onClick={copyURLHandler}>{copyURLText}</button>
+        <RangeSort max={maxPrice} min={minPrice} range={priceRange} value={priceValue} title={'price'}/>
+        <RangeSort max={maxStock} min={minStock} range={stockRange} value={stockValue} title={'stock'}/>
+        <Button fn={filtersReset} children={'Reset Filters'} mode={'sort'}/>
+        <Button fn={copyURLHandler} children={copyURLText} mode={'sort'}/>
       </div>
     </>
   )
 }
+
+// export interface IInputSort {
+//   list: string[],
+//   fn: Function,
+//   selected: string[],
+//   products: IProduct[]
+// }
+
+// export const InputSort: React.FC<IInputSort> = ({list, fn, selected, products}) => {
+
+//   function productAmount(arr: IProduct[], item: string) {
+//     return arr.filter(product => product.brand === item).length;
+//   }
+
+//   return (
+//     <div>
+//       <Header2 title={'Brands'}/>
+//       <div className='div__container'>
+//         {list.map(item => 
+//           <label className='label' key={item}>
+//             <input checked={selected.includes(item)} type="checkbox" key={item} id={item.replace(" ", "")} onChange={() => fn()} />
+//             {`${item}  (${productAmount(products, item)}/${productAmount(initialState, item)})`}
+//           </label>
+//         )}
+//       </div>
+//     </div>
+//   )
+// }

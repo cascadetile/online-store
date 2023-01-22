@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import github from 'assets/github.svg';
 import rsschool from 'assets/rsschool.svg';
-import './Footer.css';
+import './style.css';
 
 export const Footer: React.FC = () => {
   return (

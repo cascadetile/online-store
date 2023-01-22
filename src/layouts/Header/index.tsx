@@ -3,13 +3,12 @@ import {Link} from 'react-router-dom';
 import { getCartProducts, getTotalPrice } from 'store/slices/cart.slice';
 import { useAppSelector } from 'store/store.hooks';
 
-import './header.css';
+import './style.css';
+
 import logo from 'assets/logo.svg';
 import cart from 'assets/cart.svg';
 
-// TODO: move Header to App.tsx
-
-export const Header = () => {
+export const Header: React.FC = () => {
 
   const cartProducts = useAppSelector(getCartProducts);
   const totalPrice = useAppSelector(getTotalPrice);

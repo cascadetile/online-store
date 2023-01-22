@@ -4,25 +4,19 @@ import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import { useAppDispatch } from 'store/store.hooks';
 import { setPriceRange, setStockRange } from 'store/slices/filters.slice';
+import { ISliderProps } from 'interface';
 
 function valuetext(value: number) {
   return `${value}°C`;
 }
 
-interface ISliderProps {
-    max: number,
-    min: number,
-    value: number[],
-    why: string,
-}
-
-export function RangeSlider(props: ISliderProps) {
+export const RangeSlider: React.FC<ISliderProps> = ({max, min, valueArr, why}) => {
   const [value, setValue] = React.useState<number[]>([20, 37]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setValue(props.value as number[]);
-  }, [props.value]);
+    setValue(valueArr as number[]);
+  }, [valueArr]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -39,11 +33,11 @@ export function RangeSlider(props: ISliderProps) {
   return (
     <Box sx={{ width: 245 }}>
       <SiteSlider
-        max={props.max}
-        min={props.min}
+        max={max}
+        min={min}
         value={value}
         onChange={handleChange}
-        onChangeCommitted={(e, value) => handleChangeCommitted(e, value, props.why)}
+        onChangeCommitted={(e, value) => handleChangeCommitted(e, value, why)}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
       />

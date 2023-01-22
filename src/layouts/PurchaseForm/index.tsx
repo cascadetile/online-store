@@ -2,23 +2,20 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-import './purchaseForm.css';
+import './style.css';
 import { deleteFromCart, getCartProducts } from 'store/slices/cart.slice';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
+import { IForm } from 'interface';
 
-interface IFormValues {
-    fullname: string,
-    phone: string,
-    deliveryAddress: string,
-    email: string,
-    cardNumber: string,
-    cardExpiryDate: string,
-    cvc: string,
-}
-
-interface Props {
-  onSetModalVisibility: (close: boolean) => void;
-};
+// interface IFormValues {
+//   fullname: string,
+//   phone: string,
+//   deliveryAddress: string,
+//   email: string,
+//   cardNumber: string,
+//   cardExpiryDate: string,
+//   cvc: string,
+// }
 
 function identifyCreditCard(card: string) {
     if (card[0] === '4') {
@@ -60,7 +57,7 @@ function addSlash(e: React.SyntheticEvent) {
     previousValue = (e.target as HTMLInputElement).value;
 }
 
-export function PurchaseForm({onSetModalVisibility}: Props) {
+export const PurchaseForm: React.FC<IForm> = ({onSetModalVisibility}) => {
     const [isSuccess, setSuccess] = useState(false);
     const [card, setCard] = useState('');
     const cartProducts = useAppSelector(getCartProducts);

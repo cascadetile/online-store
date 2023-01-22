@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'store/store';
 import { initialState } from 'store/database/products';
-import { IProduct } from 'store/interface/IProduct';
+import { IProduct } from 'interface';
 
 const productsSlice = createSlice({
   name: "products",

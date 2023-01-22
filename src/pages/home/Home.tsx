@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Filters } from 'components/sorting/Sort'; 
-import { Header } from 'components/header/Header';
+import { Filters } from 'layouts/Sorting'; 
+import { Header } from 'layouts/Header';
 import { getProductsSelector } from 'store/slices/products.slice'; 
-import { ProductCard } from 'components/productCard/ProductCard'; 
+import { ProductCard } from 'layouts/ProductCard'; 
 
 import './home.css';
 

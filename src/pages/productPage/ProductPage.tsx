@@ -1,6 +1,5 @@
 import React from 'react';
-import { Header } from 'components/header/Header'; 
-import { IProduct } from 'store/interface/IProduct'; 
+import { IProduct } from 'interface'; 
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { addToCart, deleteFromCart, getCartProducts } from 'store/slices/cart.slice';
 import { initialState } from 'store/database/products';
@@ -10,7 +9,7 @@ import { resetFilters } from 'store/slices/filters.slice';
 import './productPage.css';
 import cart from 'assets/add-to-cart.svg';
 
-export const ProductPage = () => {
+export const ProductPage: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
