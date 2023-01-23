@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './style.css';
 import cart from 'assets/add-to-cart.svg';
 import { ProductPageBreadcrumbs } from 'components/ProductPageBreadcrumbs';
+import { ProductPageImages } from 'components/ProductPageImages';
 
 export const ProductPage: React.FC = () => {
 
@@ -18,11 +19,6 @@ export const ProductPage: React.FC = () => {
   const cartProducts = useAppSelector(getCartProducts);
   const product = initialState[+productId! - 1];
   const productInCard = cartProducts.find((item) => item.id === product.id);
-  const imagesBlocks = product.images.map((item) => 
-    <div className='product__item-img item-img-description small-img' key={item} onClick={() => changeImg(item)}>
-      <img src={item} alt='' />
-    </div>
-  )
 
   const addToCartHandler = (product: IProduct) => {
     if (productInCard) {
@@ -44,14 +40,7 @@ export const ProductPage: React.FC = () => {
       <div className='product_page'>
         <ProductPageBreadcrumbs product={product}></ProductPageBreadcrumbs>
         <div className='product__item item-description'>
-          <div className='img-description'>
-            <div className='product__item-img item-img-description big-img'>
-              <img src={product.thumbnail} alt="" />
-            </div>
-            <div className='small-img-collection'>
-              {imagesBlocks}
-            </div>
-          </div>
+          <ProductPageImages product={product}></ProductPageImages>
           <div className='product__item-description item-text'>
             <h2>{product.title}</h2>
             <p>Category: <span>{product.category}</span></p>
@@ -75,10 +64,4 @@ export const ProductPage: React.FC = () => {
       </div>
     </>
   )
-}
-
-// TODO: use useRef instead
-function changeImg(item: string) {
-  const block = document.querySelector('.big-img') as Element;
-  block.innerHTML = `<img src=${item} alt='' />`;
 }
