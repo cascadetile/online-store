@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'store/store.hooks'; 
 import { getCartProducts } from 'store/slices/cart.slice';
 
-import { CartForCart } from 'layouts/ProductCardForCart';
+import { CartItem } from 'components/CartItem';
 import { CartSummary } from 'layouts/CartSummary';
 
 import './style.css';
@@ -67,10 +67,7 @@ export const Cart = () => {
             {cartProducts.length === 0 ?
               <p>Products not found</p> :
               cartProducts.slice(firstContentIndex, lastContentIndex).map((product) => (
-                <div className='cart-item' key={`${product.title}`}>
-                  <p key={`${product.id}-${product.title}`}>{cartProducts.indexOf(product) + 1}</p>
-                  <CartForCart key={product.id} amount={product.amount} id={product.id} title={product.title} description={product.description} price={product.price} discountPercentage={product.discountPercentage} rating={product.rating} stock={product.stock} brand={product.brand} category={product.category} thumbnail={product.thumbnail} images={product.images} />
-                </div>
+                <CartItem product={product} cartProducts={cartProducts}></CartItem>
               ))
             }
           </div>

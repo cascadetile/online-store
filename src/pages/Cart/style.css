@@ -82,16 +82,3 @@
   background: none;
   cursor: pointer;
 }
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.cart-item > p {
-  font-family: 'Jost', sans-serif;
-  font-weight: 300;
-  font-size: 1.2rem;
-  color: #000;
-}
