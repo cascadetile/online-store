@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'store/store.hooks'; 
 import { getCartProducts } from 'store/slices/cart.slice';
 
+import { CartPaginationLimitForm } from 'components/CartPaginationLimitForm';
 import { CartItemsWrapper } from 'components/CartItemsWrapper';
 import { CartPaginationButtons } from 'components/CartPaginationButtons';
 import { CartSummary } from 'layouts/CartSummary';
@@ -18,7 +19,7 @@ export const Cart = () => {
 
   const [page, setPage] = useState<number>(localStorage['page'] ? +queryParams.get('page')! || JSON.parse(localStorage['page']) : 1);
   localStorage['page'] = JSON.stringify(page);
-  const [contentPerPage, setContentPerPage] = useState(localStorage['contentPerPage'] ? +queryParams.get('limit')! || JSON.parse(localStorage['contentPerPage']) : 3);
+  const [contentPerPage, setContentPerPage] = useState<number>(localStorage['contentPerPage'] ? +queryParams.get('limit')! || JSON.parse(localStorage['contentPerPage']) : 3);
   localStorage['contentPerPage'] = JSON.stringify(contentPerPage);
 
   const lastContentIndex = page * contentPerPage;
@@ -55,7 +56,7 @@ export const Cart = () => {
         <div className='cart-wrapper'>
           <div className='cart-pagination'>
             <p>Products in Cart</p>
-            <label>Limit: <input type="number" min={1} value={contentPerPage} onChange={(e) => setContentPerPage(+e.target.value)}/></label>
+            <CartPaginationLimitForm contentPerPage={contentPerPage} setContentPerPage={setContentPerPage}></CartPaginationLimitForm>
             <CartPaginationButtons page={page} maxPageNumber={maxPageNumber} setPage={setPage}></CartPaginationButtons>
           </div>
           <CartItemsWrapper 
