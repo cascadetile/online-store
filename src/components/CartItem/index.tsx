@@ -1,6 +1,7 @@
 import { IProduct } from 'interface';
 import { CardForCart } from 'layouts/ProductCardForCart';
 import React from 'react';
+import './style.css';
 
 interface Props {
   product: IProduct,
