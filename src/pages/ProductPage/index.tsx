@@ -9,19 +9,20 @@ import './style.css';
 import cart from 'assets/add-to-cart.svg';
 import { ProductPageBreadcrumbs } from 'components/ProductPageBreadcrumbs';
 import { ProductPageImages } from 'components/ProductPageImages';
+import { ProductPageDescription } from 'components/ProductPageDescription';
+import { colorRed, colorGray } from 'utils/colors';
 
 export const ProductPage: React.FC = () => {
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
 
   const cartProducts = useAppSelector(getCartProducts);
   const product = initialState[+productId! - 1];
-  const productInCard = cartProducts.find((item) => item.id === product.id);
+  const productInCart = cartProducts.find((item) => item.id === product.id);
 
   const addToCartHandler = (product: IProduct) => {
-    if (productInCard) {
+    if (productInCart) {
       dispatch(deleteFromCart(product.id));
     } else {
       dispatch(addToCart(product));
@@ -29,7 +30,7 @@ export const ProductPage: React.FC = () => {
   }
 
   const buyNowHandler = (product: IProduct) => {
-    if (!productInCard) {
+    if (!productInCart) {
       dispatch(addToCart(product));
     }
     navigate('/cart?form=true');
@@ -41,22 +42,13 @@ export const ProductPage: React.FC = () => {
         <ProductPageBreadcrumbs product={product}></ProductPageBreadcrumbs>
         <div className='product__item item-description'>
           <ProductPageImages product={product}></ProductPageImages>
-          <div className='product__item-description item-text'>
-            <h2>{product.title}</h2>
-            <p>Category: <span>{product.category}</span></p>
-            <p>Brand: <span>{product.brand}</span></p>
-            <p>Rating: <span>{product.rating}</span></p>
-            <p>Price: <span>${product.price}</span></p>
-            <p>Discount: <span>{product.discountPercentage}</span></p>
-            <p>Stock: <span>{product.stock}</span></p>
-            <p>Description: <span>{product.description}</span></p>
-          </div>
+          <ProductPageDescription product={product}></ProductPageDescription>
           <div className='buttons-container'>
-            <button className='product__item-cart cart-description' onClick={() => buyNowHandler(product)} style={{background: '#db1e02'}}>
+            <button className='product__item-cart cart-description' onClick={() => buyNowHandler(product)} style={{background: colorRed}}>
               <p>Buy now</p>
             </button>
-            <button className='product__item-cart cart-description' onClick={() => addToCartHandler(product)} style={{background: `${productInCard ? '#9e9492' : '#db1e02'}`}}>
-              <p>{productInCard ? 'Remove From Cart' : 'Add To Cart'}</p>
+            <button className='product__item-cart cart-description' onClick={() => addToCartHandler(product)} style={{background: `${productInCart ? colorGray : colorRed}`}}>
+              <p>{productInCart ? 'Remove From Cart' : 'Add To Cart'}</p>
               <img src={cart} alt="cart"/>
             </button>
           </div>

@@ -1,0 +1,22 @@
+.product__item-description {
+  order: 0;
+  max-width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 5px;
+}
+
+.product__item-description.row {
+  order: 2;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 5px;
+}
+
+.product__item-description.column {
+  order: 0;
+}
+
+.product__item-description.column > p {
+  display: none;
+}
