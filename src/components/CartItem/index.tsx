@@ -10,7 +10,7 @@ interface Props {
 
 export const CartItem: React.FC<Props> = ({product, cartProducts}) => {
   const index = cartProducts.indexOf(product) + 1;
-  return <div className='cart-item' key={`${product.id}`}>
+  return <div className='cart-item'>
     <p key={`${product.id}-${product.title}`}>{index}</p>
     <CardForCart key={product.id} product={product} />
   </div>

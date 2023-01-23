@@ -14,7 +14,7 @@ export const CartItemsWrapper: React.FC<Props> = ({firstContentIndex, lastConten
     {cartProducts.length === 0 ?
       <p>Products not found</p> :
       cartProducts.slice(firstContentIndex, lastContentIndex).map((product) => (
-        <CartItem product={product} cartProducts={cartProducts}></CartItem>
+        <CartItem key={product.id} product={product} cartProducts={cartProducts}></CartItem>
       ))
     }
   </div>
