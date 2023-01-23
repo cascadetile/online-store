@@ -10,7 +10,11 @@ import { Header2 } from 'components/Header2';
 
 import './style.css';
 
-export const CartForCart: React.FC<IProduct> = (product) => {
+interface Props {
+  product: IProduct
+}
+
+export const CardForCart: React.FC<Props> = ({product}) => {
 
   const {title, brand, amount, price, id, stock, description} = product;
   const dispatch = useAppDispatch();
