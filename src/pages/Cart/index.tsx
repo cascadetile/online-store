@@ -17,9 +17,9 @@ export const Cart = () => {
   const queryParams = new URLSearchParams(location.search);
   const navigate = useNavigate();
 
-  const [page, setPage] = useState<number>(localStorage['page'] ? +queryParams.get('page')! || JSON.parse(localStorage['page']) : 1);
+  const [page, setPage] = useState<number>(localStorage['page'] ? +queryParams.get('page')! || +JSON.parse(localStorage['page']) : 1);
   localStorage['page'] = JSON.stringify(page);
-  const [contentPerPage, setContentPerPage] = useState<number>(localStorage['contentPerPage'] ? +queryParams.get('limit')! || JSON.parse(localStorage['contentPerPage']) : 3);
+  const [contentPerPage, setContentPerPage] = useState<number>(localStorage['contentPerPage'] ? +queryParams.get('limit')! || +JSON.parse(localStorage['contentPerPage']) : 3);
   localStorage['contentPerPage'] = JSON.stringify(contentPerPage);
 
   const lastContentIndex = page * contentPerPage;
@@ -44,35 +44,28 @@ export const Cart = () => {
     navigate(`?${queryParams.toString()}`, {replace: true});
   }, [page]);
 
-  useEffect(() => {
-    if (cartProducts.length === 0) {
-      innerHTMl();
-    }
-  }, [cartProducts])
-
   return (
     <>
       <div className='cart'>
-        <div className='cart-wrapper'>
-          <div className='cart-pagination'>
-            <p>Products in Cart</p>
-            <CartPaginationLimitForm contentPerPage={contentPerPage} setContentPerPage={setContentPerPage}></CartPaginationLimitForm>
-            <CartPaginationButtons page={page} maxPageNumber={maxPageNumber} setPage={setPage}></CartPaginationButtons>
-          </div>
-          <CartItemsWrapper 
-            firstContentIndex={firstContentIndex} 
-            lastContentIndex={lastContentIndex}
-            cartProducts={cartProducts}
-          ></CartItemsWrapper>
-        </div>
-        <CartSummary/>
+        {cartProducts.length === 0 ?
+          <p>Products not found</p> :
+          <>
+            <div className='cart-wrapper'>
+              <div className='cart-pagination'>
+                <p>Products in Cart</p>
+                <CartPaginationLimitForm contentPerPage={contentPerPage} setContentPerPage={setContentPerPage}></CartPaginationLimitForm>
+                <CartPaginationButtons page={page} maxPageNumber={maxPageNumber} setPage={setPage}></CartPaginationButtons>
+              </div>
+              <CartItemsWrapper 
+                firstContentIndex={firstContentIndex} 
+                lastContentIndex={lastContentIndex}
+                cartProducts={cartProducts}
+              ></CartItemsWrapper>
+            </div>
+            <CartSummary/>
+          </>
+        }  
       </div>
     </>
   )
-}
-
-// TODO: use arrow function instead
-function innerHTMl() {
-  const cart = document.querySelector('.cart')!;
-  cart.innerHTML = `<p>Products not found</p>`;
 }
