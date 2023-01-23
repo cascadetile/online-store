@@ -1,0 +1,19 @@
+.cart-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.cart-items.column {
+  justify-content: flex-start;
+}
+
+.cart-items > p {
+  width: 100%;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: #000;
+  text-align: center;
+}

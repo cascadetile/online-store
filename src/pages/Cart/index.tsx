@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'store/store.hooks'; 
 import { getCartProducts } from 'store/slices/cart.slice';
 
-import { CartItem } from 'components/CartItem';
+import { CartItemsWrapper } from 'components/CartItemsWrapper';
 import { CartSummary } from 'layouts/CartSummary';
 
 import './style.css';
@@ -63,14 +63,12 @@ export const Cart = () => {
               <button onClick={() => setPage(page + 1 <= maxPageNumber ? page + 1 : maxPageNumber)}>&#62;</button>
             </div>
           </div>
-          <div className="products__wrapper">
-            {cartProducts.length === 0 ?
-              <p>Products not found</p> :
-              cartProducts.slice(firstContentIndex, lastContentIndex).map((product) => (
-                <CartItem product={product} cartProducts={cartProducts}></CartItem>
-              ))
-            }
-          </div>
+          <CartItemsWrapper 
+            firstContentIndex={firstContentIndex} 
+            lastContentIndex={lastContentIndex}
+            cartProducts={cartProducts}
+          ></CartItemsWrapper>
+          
         </div>
         <CartSummary/>
       </div>
