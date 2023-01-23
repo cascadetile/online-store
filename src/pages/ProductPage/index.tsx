@@ -3,11 +3,11 @@ import { IProduct } from 'interface';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { addToCart, deleteFromCart, getCartProducts } from 'store/slices/cart.slice';
 import { initialState } from 'store/database/products';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { resetFilters } from 'store/slices/filters.slice';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import './style.css';
 import cart from 'assets/add-to-cart.svg';
+import { ProductPageBreadcrumbs } from 'components/ProductPageBreadcrumbs';
 
 export const ProductPage: React.FC = () => {
 
@@ -42,15 +42,7 @@ export const ProductPage: React.FC = () => {
   return(
     <>
       <div className='product_page'>
-        <div className='breadcrumps'>
-          <Link className='breadcrumps-link' to={"/"} onClick={() => {dispatch(resetFilters())}}>Home</Link>
-          <span>/</span>
-          <Link className='breadcrumps-link' to={`/?categories=${product.category}`} onClick={() => {dispatch(resetFilters())}}>{product.category}</Link>
-          <span>/</span>
-          <Link className='breadcrumps-link' to={`/?brands=${product.brand}`} onClick={() => {dispatch(resetFilters())}}>{product.brand}</Link>
-          <span>/</span>
-          <Link className='breadcrumps-link' to={`/products/${product.id}`}>{product.title}</Link>
-        </div>
+        <ProductPageBreadcrumbs product={product}></ProductPageBreadcrumbs>
         <div className='product__item item-description'>
           <div className='img-description'>
             <div className='product__item-img item-img-description big-img'>

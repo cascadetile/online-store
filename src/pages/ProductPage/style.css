@@ -3,44 +3,6 @@
   margin-bottom: 60px;
 }
 
-.breadcrumps {
-  margin: 1rem;
-}
-
-.breadcrumps > span {
-  font-size: 2rem;
-  margin: 1rem;
-  color: aliceblue;
-}
-
-.breadcrumps-link {
-  position: relative;
-  width: max-content;
-  height: max-content;
-  font-family: 'Jaldi', sans-serif;
-  font-weight: 400;
-  font-size: 2rem;
-  color: white;
-  text-decoration: none;
-  text-transform: capitalize;
-  overflow: hidden;
-}
-
-.breadcrumps-link::after {
-  position: absolute;
-  bottom: 6px;
-  right: 0;
-  content: '';
-  height: 1px;
-  width: 0%;
-  background: white;
-  transition: 0.5s all;
-}
-
-.breadcrumps-link:hover::after {
-  width: 100%;
-}
-
 .item-description {
   width: 92vw;
   height: 450px;
