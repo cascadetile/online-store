@@ -5,22 +5,15 @@ import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { sortProducts } from 'store/slices/products.slice';
 import { initialState } from 'store/database/products';
 import { getProductsSelector, getUnfilteredProducts } from 'store/slices/products.slice';
-import { brandHandler, categoryHandler, resetFilters, setBrands, setCategories, setPriceRange, setStockRange } from 'store/slices/filters.slice';
-import { IProduct } from 'interface'; 
-
+import { categoryHandler, resetFilters, setCategories, setPriceRange, setStockRange } from 'store/slices/filters.slice';
 import './style.css';
-
-import { RangeSlider } from 'layouts/RangeSlider';
 import { Header2 } from 'components/Header2';
 import { Button } from 'components/Button';
-import { TextLine } from 'components/TextLine';
-import { colorGray } from 'utils/colors';
 import { SelectSort } from 'layouts/SelectSort';
 import { RangeSort } from 'layouts/RangeSort';
-
+import { FiltersBrands } from 'components/FiltersBrands';
 
 export const Filters: React.FC = () => {
-
   const dispatch = useAppDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -33,8 +26,6 @@ export const Filters: React.FC = () => {
     navigate(`?${queryParams.toString()}`, {replace: true});
     dispatch(sortProducts(option));
   }
-
-  const [brandList] = useState(Array.from(new Set(initialState.map(item => item.brand))));
   const [categoryList] = useState(Array.from(new Set(initialState.map(item => item.category))));
   const [priceValue, setPriceValue] = useState([0, 0]);
   const [stockValue, setStockValue] = useState([0, 0]);
@@ -47,14 +38,10 @@ export const Filters: React.FC = () => {
 
   const products = useSelector(getProductsSelector);
   const unfilteredProducts = useSelector(getUnfilteredProducts);
-  const [filterItems, setFilterItems] = useState([] as IProduct[]);
 
   const setCategoriesArray = (categories: string[]) => dispatch(setCategories(categories));
-  const setBrandsArray = (categories: string[]) => dispatch(setBrands(categories));
-  const brandSelect = (brand: {brand: string, checked: boolean}) => dispatch(brandHandler(brand));
   const categorySelect = (category: {category: string, checked: boolean}) => dispatch(categoryHandler(category));
 
-  const selectedBrands = useAppSelector((state) => state.filters.brands);
   const selectedCategories = useAppSelector((state) => state.filters.categories);
   const priceRange = useAppSelector((state) => state.filters.priceRange);
   const stockRange = useAppSelector((state) => state.filters.stockRange);
@@ -81,9 +68,6 @@ export const Filters: React.FC = () => {
   useEffect(() => {
     if (queryParams.getAll('categories').length) {
       setCategoriesArray(queryParams.getAll('categories'));
-    }
-    if (queryParams.getAll('brands').length) {
-      setBrandsArray(queryParams.getAll('brands'));
     }
     // check if unfilteredProducts exists and is not empty
     if (unfilteredProducts && unfilteredProducts.length) {
@@ -136,16 +120,6 @@ export const Filters: React.FC = () => {
   }, [minStock, maxStock]);
 
   useEffect(() => {
-    if (selectedBrands) {
-      queryParams.delete('brands');
-      for (let i = 0; i < selectedBrands.length; i++) {
-        queryParams.append('brands', selectedBrands[i]);
-      }
-      navigate(`?${queryParams.toString()}`, {replace: true});
-    }
-  }, [selectedBrands]);
-
-  useEffect(() => {
     if (selectedCategories) {
       queryParams.delete('categories');
       for (let i = 0; i < selectedCategories.length; i++) {
@@ -175,25 +149,11 @@ export const Filters: React.FC = () => {
     }
   }, [stockRange]);
 
-  useEffect(() => {
-    setFilterItems(products);
-  }, [selectedBrands, selectedCategories, priceRange, stockRange, products]);
-
   return (
     <>
       <div className='filters__wrapper'>
         <SelectSort value={selectValue} fn={(e) => handleSortSelect(e.target.value)}/>
-        <div>
-          <Header2 title={'Brands'}/>
-          <div className='div__container'>
-            {brandList.map(brand => 
-              <label className='label' key={brand}>
-                <input checked={selectedBrands.includes(brand)} key={brand} onChange={(e) => brandSelect({ brand: (e.target as HTMLInputElement).name, checked: (e.target as HTMLInputElement).checked })} type="checkbox" name={brand} id={brand.replace(" ", "")} />
-                {`${brand}  (${products.filter(product => product.brand === brand).length}/${initialState.filter(product => product.brand === brand).length})`}
-              </label>
-            )}
-          </div>
-        </div>
+        <FiltersBrands products={products}></FiltersBrands>
         <div>
           <Header2 title={'Category'}/>
           <div className='div__container'>
