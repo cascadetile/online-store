@@ -1,0 +1,21 @@
+.cart-pagination__buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-pagination__buttons > p {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: #000;
+}
+
+.cart-pagination__buttons > button {
+  width: 25px;
+  height: 25px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+}

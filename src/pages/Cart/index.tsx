@@ -5,18 +5,18 @@ import { useAppSelector } from 'store/store.hooks';
 import { getCartProducts } from 'store/slices/cart.slice';
 
 import { CartItemsWrapper } from 'components/CartItemsWrapper';
+import { CartPaginationButtons } from 'components/CartPaginationButtons';
 import { CartSummary } from 'layouts/CartSummary';
 
 import './style.css';
 
 export const Cart = () => {
-
   const cartProducts = useAppSelector(getCartProducts);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const navigate = useNavigate();
 
-  const [page, setPage] = useState(localStorage['page'] ? +queryParams.get('page')! || JSON.parse(localStorage['page']) : 1);
+  const [page, setPage] = useState<number>(localStorage['page'] ? +queryParams.get('page')! || JSON.parse(localStorage['page']) : 1);
   localStorage['page'] = JSON.stringify(page);
   const [contentPerPage, setContentPerPage] = useState(localStorage['contentPerPage'] ? +queryParams.get('limit')! || JSON.parse(localStorage['contentPerPage']) : 3);
   localStorage['contentPerPage'] = JSON.stringify(contentPerPage);
@@ -56,19 +56,13 @@ export const Cart = () => {
           <div className='cart-pagination'>
             <p>Products in Cart</p>
             <label>Limit: <input type="number" min={1} value={contentPerPage} onChange={(e) => setContentPerPage(+e.target.value)}/></label>
-            <div className='cart-pagination-pages'>
-              <p>Page:</p>
-              <button onClick={() => setPage(page - 1 > 0 ? page - 1 : 1)}>&#60;</button>
-              <p>{page}</p>
-              <button onClick={() => setPage(page + 1 <= maxPageNumber ? page + 1 : maxPageNumber)}>&#62;</button>
-            </div>
+            <CartPaginationButtons page={page} maxPageNumber={maxPageNumber} setPage={setPage}></CartPaginationButtons>
           </div>
           <CartItemsWrapper 
             firstContentIndex={firstContentIndex} 
             lastContentIndex={lastContentIndex}
             cartProducts={cartProducts}
           ></CartItemsWrapper>
-          
         </div>
         <CartSummary/>
       </div>
