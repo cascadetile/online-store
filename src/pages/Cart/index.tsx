@@ -7,7 +7,7 @@ import { getCartProducts } from 'store/slices/cart.slice';
 import { CartForCart } from 'layouts/ProductCardForCart';
 import { CartSummary } from 'layouts/CartSummary';
 
-import './cart.css';
+import './style.css';
 
 export const Cart = () => {
 

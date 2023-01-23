@@ -6,7 +6,7 @@ import { initialState } from 'store/database/products';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { resetFilters } from 'store/slices/filters.slice';
 
-import './productPage.css';
+import './style.css';
 import cart from 'assets/add-to-cart.svg';
 
 export const ProductPage: React.FC = () => {

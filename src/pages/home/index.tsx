@@ -6,7 +6,7 @@ import { Header } from 'layouts/Header';
 import { getProductsSelector } from 'store/slices/products.slice'; 
 import { ProductCard } from 'layouts/ProductCard'; 
 
-import './home.css';
+import './style.css';
 
 import search from 'assets/search.svg';
 import { setValueChange } from 'store/slices/filters.slice';

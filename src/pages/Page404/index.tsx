@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import './page404.css';
+import './style.css';
 
 export const Page404 = () => {
   return (
