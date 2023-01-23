@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Filters } from 'layouts/Sorting'; 
-import { Header } from 'layouts/Header';
+import { Filters } from 'layouts/Filters'; 
 import { getProductsSelector } from 'store/slices/products.slice'; 
 import { ProductCard } from 'layouts/ProductCard'; 
 
@@ -20,7 +19,6 @@ export function returnDisplayModeStyle (displayMode: string) {
 };
 
 export const Home = () => {
-
   const dispatch = useAppDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
