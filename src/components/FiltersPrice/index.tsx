@@ -8,11 +8,11 @@ import { RangeSort } from 'layouts/RangeSort';
 
 interface Props {
   unfilteredProducts: IProduct[]
-  isResetFilters: boolean
-  setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>
+  isResetPrice: boolean
+  setIsResetPrice: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const FiltersPrice: React.FC<Props> = ({unfilteredProducts, isResetFilters, setIsResetFilters}) => {
+export const FiltersPrice: React.FC<Props> = ({unfilteredProducts, isResetPrice, setIsResetPrice}) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,13 +41,13 @@ export const FiltersPrice: React.FC<Props> = ({unfilteredProducts, isResetFilter
   }, []);
 
   useEffect(() => {
-    if (isResetFilters) {
+    if (isResetPrice) {
       console.log('set price in reset filters')
       setPriceValue([minPrice, maxPrice]);
       dispatch(setPriceRange([minPrice, maxPrice]));
-      setIsResetFilters(false);
+      setIsResetPrice(false);
     }
-  }, [isResetFilters]);
+  }, [isResetPrice]);
 
   // if user didn't open someone's link, use default value for slider, which is [minPrice, maxPrice]
   useEffect(() => {
