@@ -12,14 +12,13 @@ import { PromocodeBlock } from 'layouts/PromocodeBlock';
 import './style.css';
 
 export const CartSummary: React.FC = () => {
-
   const cartProducts = useAppSelector(getCartProducts);
 
   const totalPrice = useAppSelector(getTotalPrice);
   const itemsInCart = cartProducts.map(item => item.amount).reduce((acc, curr) => acc + curr, 0);
   const [isModalVisible, setModalVisibility] = useState(false);
 
-  const [value, setValue] = useState("");
+  const [promocode, setPromocode] = useState("");
   const [promocodeTA, setPromocodeTA] = useState(false);
   const [promocodeRS, setPromocodeRS] = useState(false);
 
@@ -46,7 +45,7 @@ export const CartSummary: React.FC = () => {
       setModalVisibility(true);
       setForm(false);
     }
-  })
+  }, [form]);
 
   useEffect(() => {
     queryParams.delete('form');
@@ -57,7 +56,7 @@ export const CartSummary: React.FC = () => {
   }, [isModalVisible]);
 
   useEffect(() => {
-    switch (value) {
+    switch (promocode) {
       case('TA'):
         setPromocodeTA(true);
         break;
@@ -69,7 +68,7 @@ export const CartSummary: React.FC = () => {
         setPromocodeRS(false);
         break;
     }
-  })  
+  }, [promocode]);
 
   return (
     <>
@@ -118,9 +117,9 @@ export const CartSummary: React.FC = () => {
         </div>
         : <></>}
         <div className='cart-summary-input'>
-          <input type='text' id='promocode' placeholder='Enter promo code' onChange={(e) => setValue(e.target.value)} value={value}/>
+          <input type='text' id='promocode' placeholder='Enter promo code' onChange={(e) => setPromocode(e.target.value)} value={promocode}/>
           <Button
-            fn={() => setValue('')}
+            fn={() => setPromocode('')}
             children={'x'}
           />
         </div>
