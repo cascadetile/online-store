@@ -75,3 +75,8 @@ export interface IRangeSort {
   value: number[],
   title: string
 }
+
+export interface IBreadcrumps {
+  fn: () => void,
+  product: IProduct
+}

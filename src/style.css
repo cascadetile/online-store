@@ -7,3 +7,7 @@ html {
   font-size: 16px;
   background: #181818;
 }
+/* 
+#root > div {
+  min-height: 100%;
+} */

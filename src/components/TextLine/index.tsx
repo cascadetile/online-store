@@ -3,9 +3,9 @@ import { IText } from 'interface';
 
 import './style.css';
 
-export const TextLine: React.FC<IText> = ({title, description, styleSpan, styleText}) => {
+export const TextLine: React.FC<IText> = ({title, description, styleSpan, styleText, mode}) => {
   return (
-    <p className='text-line' style={styleText}>
+    <p className={`text-line ${mode}`} style={styleText}>
       {title} <span style={styleSpan}>{description}</span>
     </p>
   )

@@ -48,3 +48,14 @@
   font-size: 1.5rem;
   background: #2e2e2e;
 }
+
+.cart-description {
+  width: max-content;
+  height: 50px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+}
