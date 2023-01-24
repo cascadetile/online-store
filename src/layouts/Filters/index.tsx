@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useAppDispatch, useAppSelector } from 'store/store.hooks';
+import { useAppDispatch } from 'store/store.hooks';
 import { sortProducts, getProductsSelector, getUnfilteredProducts } from 'store/slices/products.slice';
-import { resetFilters, setPriceRange, setStockRange } from 'store/slices/filters.slice';
+import { resetFilters } from 'store/slices/filters.slice';
 import './style.css';
 import { Button } from 'components/Button';
 import { SelectSort } from 'layouts/SelectSort';
-import { RangeSort } from 'layouts/RangeSort';
 import { FiltersBrands } from 'components/FiltersBrands';
 import { FiltersCategories } from 'components/FiltersCategories';
 import { FiltersPrice } from 'components/FiltersPrice';
+import { FiltersStock } from 'components/FiltersStock';
 
 export const Filters: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,23 +26,18 @@ export const Filters: React.FC = () => {
     dispatch(sortProducts(option));
   }
   
-  const [isResetFilters, setIsResetFilters] = useState<boolean>(false);
-  const [stockValue, setStockValue] = useState([0, 0]);
-  const [minStock, setMinStock] = useState(0);
-  const [maxStock, setMaxStock] = useState(0);
+  const [isResetPrice, setIsResetPrice] = useState<boolean>(false);
+  const [isResetStock, setIsResetStock] = useState<boolean>(false);
   const [selectValue, setSelectValue] = useState('choose sort');
   const [copyURLText, setCopyURLText] = useState('Copy URL');
 
   const products = useSelector(getProductsSelector);
   const unfilteredProducts = useSelector(getUnfilteredProducts);
 
-  const stockRange = useAppSelector((state) => state.filters.stockRange);
-
   const filtersReset = () => {
-    setIsResetFilters(true);
+    setIsResetPrice(true);
+    setIsResetStock(true);
     dispatch(resetFilters());
-    setStockValue([minStock, maxStock]);
-    dispatch(setStockRange([minStock, maxStock]));
     setSelectValue('choose sort');
     dispatch(sortProducts('choose sort'));
     navigate('/', {replace: true});
@@ -57,20 +52,6 @@ export const Filters: React.FC = () => {
   }
 
   useEffect(() => {
-    // check if unfilteredProducts exists and is not empty
-    if (unfilteredProducts && unfilteredProducts.length) {
-      // find min stock and max stock
-      setMinStock(unfilteredProducts.reduce((prev, cur) => prev.stock < cur.stock ? prev : cur).stock);
-      setMaxStock(unfilteredProducts.reduce((prev, cur) => prev.stock > cur.stock ? prev : cur).stock);
-    }
-    if (queryParams.get('stock')) {
-      let stock = queryParams.get('stock');
-      if (stock) {
-        let stockArr = stock.split('-').map((elem) => Number(elem));
-        setStockValue(stockArr);
-        dispatch(setStockRange(stockArr));
-      }
-    }
     if (queryParams.get('sort')) {
       let sort = queryParams.get('sort');
       if (sort) {
@@ -80,31 +61,14 @@ export const Filters: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // check for 0 and 0 to skip execution on useState(0)
-    if (queryParams.get('stock') === null && minStock !== 0 && maxStock !== 0) {
-      setStockValue([minStock, maxStock]);
-    }
-  }, [minStock, maxStock]);
-
-  useEffect(() => {
-    queryParams.delete('stock');
-    if (stockRange && stockRange.length) {
-      if (stockRange[0] !== 0 && stockRange[1] !== 0) {
-        queryParams.append('stock', stockRange.join('-'));
-        navigate(`?${queryParams.toString()}`, {replace: true});
-      }
-    }
-  }, [stockRange]);
-
   return (
     <>
       <div className='filters__wrapper'>
         <SelectSort value={selectValue} fn={(e) => handleSortSelect(e.target.value)}/>
         <FiltersBrands products={products}></FiltersBrands>
         <FiltersCategories products={products}></FiltersCategories>
-        <FiltersPrice unfilteredProducts={unfilteredProducts} isResetFilters={isResetFilters} setIsResetFilters={setIsResetFilters}></FiltersPrice>
-        <RangeSort max={maxStock} min={minStock} range={stockRange} value={stockValue} title={'stock'}/>
+        <FiltersPrice unfilteredProducts={unfilteredProducts} isResetPrice={isResetPrice} setIsResetPrice={setIsResetPrice}></FiltersPrice>
+        <FiltersStock unfilteredProducts={unfilteredProducts} isResetStock={isResetStock} setIsResetStock={setIsResetStock}></FiltersStock>
         <Button fn={filtersReset} children={'Reset Filters'} mode={'sort'}/>
         <Button fn={copyURLHandler} children={copyURLText} mode={'sort'}/>
       </div>
