@@ -54,31 +54,3 @@ export const Filters: React.FC = () => {
     </>
   )
 }
-
-// export interface IInputSort {
-//   list: string[],
-//   fn: Function,
-//   selected: string[],
-//   products: IProduct[]
-// }
-
-// export const InputSort: React.FC<IInputSort> = ({list, fn, selected, products}) => {
-
-//   function productAmount(arr: IProduct[], item: string) {
-//     return arr.filter(product => product.brand === item).length;
-//   }
-
-//   return (
-//     <div>
-//       <Header2 title={'Brands'}/>
-//       <div className='div__container'>
-//         {list.map(item => 
-//           <label className='label' key={item}>
-//             <input checked={selected.includes(item)} type="checkbox" key={item} id={item.replace(" ", "")} onChange={() => fn()} />
-//             {`${item}  (${productAmount(products, item)}/${productAmount(initialState, item)})`}
-//           </label>
-//         )}
-//       </div>
-//     </div>
-//   )
-// }
