@@ -7,10 +7,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import './style.css';
 import cart from 'assets/add-to-cart.svg';
-import { ProductPageBreadcrumbs } from 'components/ProductPageBreadcrumbs';
+import { Breadcrumps } from 'layouts/Breadcrumps';
+import { Header2 } from 'components/Header2';
+import { TextLine } from 'components/TextLine';
+import { Button } from 'components/Button';
+import { colorGray, colorRed } from 'utils/colors';
+import { resetFilters } from 'store/slices/filters.slice';
 import { ProductPageImages } from 'components/ProductPageImages';
-import { ProductPageDescription } from 'components/ProductPageDescription';
-import { colorRed, colorGray } from 'utils/colors';
 
 export const ProductPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,10 +22,11 @@ export const ProductPage: React.FC = () => {
 
   const cartProducts = useAppSelector(getCartProducts);
   const product = initialState[+productId! - 1];
-  const productInCart = cartProducts.find((item) => item.id === product.id);
+  const {category, description, title, brand, rating, discountPercentage, price, stock} = product;
+  const productInCard = cartProducts.find((item) => item.id === product.id);
 
   const addToCartHandler = (product: IProduct) => {
-    if (productInCart) {
+    if (productInCard) {
       dispatch(deleteFromCart(product.id));
     } else {
       dispatch(addToCart(product));
@@ -30,7 +34,7 @@ export const ProductPage: React.FC = () => {
   }
 
   const buyNowHandler = (product: IProduct) => {
-    if (!productInCart) {
+    if (!productInCard) {
       dispatch(addToCart(product));
     }
     navigate('/cart?form=true');
@@ -39,18 +43,32 @@ export const ProductPage: React.FC = () => {
   return(
     <>
       <div className='product_page'>
-        <ProductPageBreadcrumbs product={product}></ProductPageBreadcrumbs>
+        <Breadcrumps fn={() => dispatch(resetFilters())} product={product}/>
         <div className='product__item item-description'>
-          <ProductPageImages product={product}></ProductPageImages>
-          <ProductPageDescription product={product}></ProductPageDescription>
+          <ProductPageImages product={product}/>
+          <div className='product__item-description item-text'>
+            <Header2 title={title}/>
+            <TextLine title={'Category:'} description={category} mode={"page"}/>
+            <TextLine title={'Brand:'} description={brand} mode={"page"}/>
+            <TextLine title={'Rating:'} description={rating} mode={"page"}/>
+            <TextLine title={'Price:'} description={price} mode={"page"}/>
+            <TextLine title={'Discount:'} description={discountPercentage} mode={"page"}/>
+            <TextLine title={'Stock:'} description={stock} mode={"page"}/>
+            <TextLine title={'Description:'} description={description} mode={"page"}/>
+          </div>
           <div className='buttons-container'>
-            <button className='product__item-cart cart-description' onClick={() => buyNowHandler(product)} style={{background: colorRed}}>
-              <p>Buy now</p>
-            </button>
-            <button className='product__item-cart cart-description' onClick={() => addToCartHandler(product)} style={{background: `${productInCart ? colorGray : colorRed}`}}>
-              <p>{productInCart ? 'Remove From Cart' : 'Add To Cart'}</p>
-              <img src={cart} alt="cart"/>
-            </button>
+            <Button 
+              fn={() => buyNowHandler(product)}
+              style={{background: colorRed}}
+              children={<p>Buy now</p>}
+              mode={"cart-description"}
+            />
+            <Button 
+              fn={() => addToCartHandler(product)}
+              style={{background: `${productInCard ? colorGray : colorRed}`}}
+              children={[<p key={''}>{productInCard ? 'Remove From Cart' : 'Add To Cart'}</p>, <img key={"."} src={cart} alt="cart"/>]}
+              mode={"cart-description"}
+            />
           </div>
         </div>
       </div>

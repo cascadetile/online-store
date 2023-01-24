@@ -43,26 +43,6 @@
   gap: 2rem;
 }
 
-.cart-description {
-  cursor: pointer;
-  width: max-content;
-  height: 50px;
-  padding: 0 1rem;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.cart-description > p {
-  font-family: 'Jaldi', sans-serif;
-  font-weight: 300;
-  font-size: 1.5rem;
-  color: white;
-}
-
 .cart-description > img {
   width: 48px;
   height: 48px;
