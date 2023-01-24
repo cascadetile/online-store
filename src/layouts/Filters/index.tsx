@@ -1,34 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'store/store.hooks';
-import { sortProducts, getProductsSelector, getUnfilteredProducts } from 'store/slices/products.slice';
+import { getProductsSelector, getUnfilteredProducts } from 'store/slices/products.slice';
 import { resetFilters } from 'store/slices/filters.slice';
 import './style.css';
 import { Button } from 'components/Button';
-import { SelectSort } from 'layouts/SelectSort';
 import { FiltersBrands } from 'components/FiltersBrands';
 import { FiltersCategories } from 'components/FiltersCategories';
 import { FiltersPrice } from 'components/FiltersPrice';
 import { FiltersStock } from 'components/FiltersStock';
+import { FiltersSort } from 'components/FiltersSort';
 
 export const Filters: React.FC = () => {
   const dispatch = useAppDispatch();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
   const navigate = useNavigate();
 
-  const handleSortSelect = (option: string) => {
-    setSelectValue(option);
-    queryParams.delete('sort');
-    queryParams.append('sort', option);
-    navigate(`?${queryParams.toString()}`, {replace: true});
-    dispatch(sortProducts(option));
-  }
-  
+  const [isResetSort, setIsResetSort] = useState<boolean>(false);
   const [isResetPrice, setIsResetPrice] = useState<boolean>(false);
   const [isResetStock, setIsResetStock] = useState<boolean>(false);
-  const [selectValue, setSelectValue] = useState('choose sort');
   const [copyURLText, setCopyURLText] = useState('Copy URL');
 
   const products = useSelector(getProductsSelector);
@@ -37,11 +27,10 @@ export const Filters: React.FC = () => {
   const filtersReset = () => {
     setIsResetPrice(true);
     setIsResetStock(true);
+    setIsResetSort(true);
     dispatch(resetFilters());
-    setSelectValue('choose sort');
-    dispatch(sortProducts('choose sort'));
     navigate('/', {replace: true});
-  }
+  };
 
   const copyURLHandler = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -49,22 +38,12 @@ export const Filters: React.FC = () => {
     setTimeout(() => {
       setCopyURLText('Copy URL');
     }, 1000);
-  }
-
-  useEffect(() => {
-    if (queryParams.get('sort')) {
-      let sort = queryParams.get('sort');
-      if (sort) {
-        setSelectValue(sort);
-        dispatch(sortProducts(sort));
-      }
-    }
-  }, []);
+  };
 
   return (
     <>
       <div className='filters__wrapper'>
-        <SelectSort value={selectValue} fn={(e) => handleSortSelect(e.target.value)}/>
+        <FiltersSort isResetSort={isResetSort} setIsResetSort={setIsResetSort}></FiltersSort>
         <FiltersBrands products={products}></FiltersBrands>
         <FiltersCategories products={products}></FiltersCategories>
         <FiltersPrice unfilteredProducts={unfilteredProducts} isResetPrice={isResetPrice} setIsResetPrice={setIsResetPrice}></FiltersPrice>
