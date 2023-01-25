@@ -40,7 +40,7 @@ const productsSlice = createSlice({
 
 export const { addProduct, sortProducts } = productsSlice.actions;
 
-let filteredProducts = (state: RootState) => {
+const filteredProducts = (state: RootState) => {
   const hasRange = state.filters.priceRange.length && state.filters.priceRange[1] !== 0;
   const hasStockRange = state.filters.stockRange.length && state.filters.stockRange[1] !== 0;
   const hasBrands = state.filters.brands.length;

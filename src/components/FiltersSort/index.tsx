@@ -27,7 +27,7 @@ export const FiltersSort: React.FC<IFiltersSort> = ({isResetSort, setIsResetSort
 
   useEffect(() => {
     if (queryParams.get('sort')) {
-      let sort = queryParams.get('sort');
+      const sort = queryParams.get('sort');
       if (sort) {
         setSelectValue(sort);
         dispatch(sortProducts(sort));

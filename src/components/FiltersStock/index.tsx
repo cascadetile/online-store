@@ -22,9 +22,9 @@ export const FiltersStock: React.FC<IFiltersStock> = ({unfilteredProducts, isRes
 
   useEffect(() => {
     if (queryParams.get('stock')) {
-      let stock = queryParams.get('stock');
+      const stock = queryParams.get('stock');
       if (stock) {
-        let stockArr = stock.split('-').map((elem) => Number(elem));
+        const stockArr = stock.split('-').map((elem) => Number(elem));
         setStockValue(stockArr);
         dispatch(setStockRange(stockArr));
       }

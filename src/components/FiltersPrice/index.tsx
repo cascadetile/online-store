@@ -22,10 +22,10 @@ export const FiltersPrice: React.FC<IFiltersPrice> = ({unfilteredProducts, isRes
 
   useEffect(() => {
     if (queryParams.get('price')) {
-      let price = queryParams.get('price');
+      const price = queryParams.get('price');
       if (price) {
         console.log('get price from query and set price');
-        let priceArr = price.split('-').map((elem) => Number(elem));
+        const priceArr = price.split('-').map((elem) => Number(elem));
         setPriceValue(priceArr);
         dispatch(setPriceRange(priceArr));
       }

@@ -17,7 +17,7 @@ export function returnDisplayModeStyle (displayMode: string) {
     return 'row';
   }
   return 'column';
-};
+}
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -44,13 +44,13 @@ export const Home = () => {
 
   useEffect(() => {
     if (queryParams.get('search')) {
-      let search = queryParams.get('search');
+      const search = queryParams.get('search');
       if (search) {
         dispatch(setValueChange([search]));
       }
     }
     if (queryParams.get('display')) {
-      let display = queryParams.get('display');
+      const display = queryParams.get('display');
       if (display) {
         setDisplayMode(display);
       }

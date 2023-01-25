@@ -53,14 +53,21 @@ export const Cart = () => {
             <div className='cart-wrapper'>
               <div className='cart-pagination'>
                 <p>Products in Cart</p>
-                <CartPaginationLimitForm contentPerPage={contentPerPage} setContentPerPage={setContentPerPage}></CartPaginationLimitForm>
-                <CartPaginationButtons page={page} maxPageNumber={maxPageNumber} setPage={setPage}></CartPaginationButtons>
+                <CartPaginationLimitForm
+                  contentPerPage={contentPerPage} 
+                  setContentPerPage={setContentPerPage}
+                />
+                <CartPaginationButtons
+                  page={page}
+                  maxPageNumber={maxPageNumber}
+                  setPage={setPage}
+                />
               </div>
               <CartItemsWrapper 
                 firstContentIndex={firstContentIndex} 
                 lastContentIndex={lastContentIndex}
                 cartProducts={cartProducts}
-              ></CartItemsWrapper>
+              />
             </div>
             <CartSummary/>
           </>

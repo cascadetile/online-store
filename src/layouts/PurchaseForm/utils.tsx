@@ -2,7 +2,7 @@ export const keyDownHandler = (e: React.KeyboardEvent, maxLen: number) => {
   if (e.repeat) {
     e.preventDefault();
     return;
-  };
+  }
   if (e.code !== 'ArrowLeft' && e.code !== 'ArrowRight'
     && e.code !== 'Digit1' && e.code !== 'Digit2' 
     && e.code !== 'Digit3' && e.code !== 'Digit4' 
