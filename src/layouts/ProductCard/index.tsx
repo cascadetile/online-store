@@ -43,7 +43,7 @@ export const ProductCard: React.FC<ICartInterface> = ({id, title, category, bran
       <Button
         fn={() => addToCartHandler(product)}
         style={{background: `${productInCard ? colorGray : colorRed}`}}
-        children={[<AddToCartSVG/>, (mode === 'column') ? <p key={''}>${price}</p> : <></>]}
+        children={[<AddToCartSVG key={mode}/>, (mode === 'column') ? <p key={''}>${price}</p> : <></>]}
         mode={mode}
       />
     </div>
