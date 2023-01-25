@@ -19,8 +19,8 @@ export const CartSummary: React.FC = () => {
   const [isModalVisible, setModalVisibility] = useState(false);
 
   const [promocode, setPromocode] = useState("");
-  const [promocodeTA, setPromocodeTA] = useState(false);
-  const [promocodeRS, setPromocodeRS] = useState(false);
+  const [suggestTAPromo, setSuggestTAPromo] = useState(false);
+  const [suggestRSPromo, setSuggestRSPromo] = useState(false);
 
   const TA = localStorage['activeTA'] ? JSON.parse(localStorage['activeTA']) : false;
   const [activeTA, setActiveTA] = useState(TA);
@@ -58,14 +58,14 @@ export const CartSummary: React.FC = () => {
   useEffect(() => {
     switch (promocode) {
       case('TA'):
-        setPromocodeTA(true);
+        setSuggestTAPromo(true);
         break;
       case('RS'): 
-        setPromocodeRS(true);
+        setSuggestRSPromo(true);
         break;
       default:
-        setPromocodeTA(false);
-        setPromocodeRS(false);
+        setSuggestTAPromo(false);
+        setSuggestRSPromo(false);
         break;
     }
   }, [promocode]);
@@ -93,9 +93,12 @@ export const CartSummary: React.FC = () => {
             />
           }
         </div>
+        {/* Active promocodes */}
+        {/* If at least one promocode is active, show their wrapper */}
         {activeRS || activeTA ?
         <div className='promocode-active'>
           <Header2 title={'Active Promocodes'}/>
+          {/* Show button to delete a promocode */}
           {!activeTA ? <></> : 
             <PromocodeBlock
               setActive={setActiveTA} 
@@ -105,6 +108,7 @@ export const CartSummary: React.FC = () => {
               boolean={false}
             />
           }
+          {/* Show button to delete a promocode */}
           {!activeRS ? <></> :
             <PromocodeBlock
               setActive={setActiveRS}
@@ -115,7 +119,9 @@ export const CartSummary: React.FC = () => {
             />
           }
         </div>
+        // Show empty block if there are no active promocodes
         : <></>}
+        {/* Input for promocodes */}
         <div className='cart-summary-input'>
           <input type='text' id='promocode' placeholder='Enter promo code' onChange={(e) => setPromocode(e.target.value)} value={promocode}/>
           <Button
@@ -123,7 +129,8 @@ export const CartSummary: React.FC = () => {
             children={'x'}
           />
         </div>
-        {promocodeTA ? 
+        {/* Suggested promocodes if it equals to a valid one */}
+        {suggestTAPromo ? 
           (activeTA ? <></> : 
             <PromocodeBlock
               setActive={setActiveTA} 
@@ -134,7 +141,7 @@ export const CartSummary: React.FC = () => {
             />
           ) : <></>
         }
-        {promocodeRS ? 
+        {suggestRSPromo ? 
           (activeRS ? <></> : 
             <PromocodeBlock
               setActive={setActiveRS}
