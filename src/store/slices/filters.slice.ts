@@ -8,7 +8,7 @@ const filtersSlice = createSlice({
         categories: [] as Array<string>,
         priceRange: [] as Array<number>,
         stockRange: [] as Array<number>,
-        value: [] as Array<string>
+        value: [''] as Array<string>
     },
     reducers: {
         brandHandler: (state, action: PayloadAction<{brand: string, checked: boolean}>) => {
