@@ -41,7 +41,7 @@ export interface IButton {
   fn: (() => {}) | (() => void),
   style?: React.CSSProperties,
   mode?: string,
-  children?: JSX.Element | JSX.Element[] | string
+  children?: JSX.Element | JSX.Element[] | string 
 }
 
 export interface IPromocodeBlock {

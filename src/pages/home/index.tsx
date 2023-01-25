@@ -10,6 +10,7 @@ import './style.css';
 import search from 'assets/search.svg';
 import { setValueChange } from 'store/slices/filters.slice';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
+import { Search } from 'assets/Search';
 
 export function returnDisplayModeStyle (displayMode: string) {
   if (displayMode === 'rows') {
@@ -70,7 +71,7 @@ export const Home = () => {
             </select>
             <form>
               <label className='label-filter'>
-                <img src={search} alt="" />
+                <Search/>
                 <input className='input' type='text' value={searchValue} placeholder='' onChange={(e) => handleChange(e.target.value)} />
               </label>
             </form>
@@ -78,7 +79,7 @@ export const Home = () => {
           <div className={`products__wrapper ${returnDisplayModeStyle(displayMode)}`}>
             {products.length !== 0 
                 ? products.map(product =>
-                    <ProductCard key={product.id} mode={returnDisplayModeStyle(displayMode)} amount={product.amount} id={product.id} title={product.title} description={product.description} price={product.price} discountPercentage={product.discountPercentage} rating={product.rating} stock={product.stock} brand={product.brand} category={product.category} thumbnail={product.thumbnail} images={product.images}></ProductCard>
+                    <ProductCard key={product.id} mode={returnDisplayModeStyle(displayMode)} {...product}/>
                   )
                 : <p>Products not found</p>
             }

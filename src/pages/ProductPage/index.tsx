@@ -14,6 +14,7 @@ import { Button } from 'components/Button';
 import { colorGray, colorRed } from 'utils/colors';
 import { resetFilters } from 'store/slices/filters.slice';
 import { ProductPageImages } from 'components/ProductPageImages';
+import { AddToCartSVG } from 'assets/AddToCartSVG';
 
 export const ProductPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -66,7 +67,7 @@ export const ProductPage: React.FC = () => {
             <Button 
               fn={() => addToCartHandler(product)}
               style={{background: `${productInCard ? colorGray : colorRed}`}}
-              children={[<p key={''}>{productInCard ? 'Remove From Cart' : 'Add To Cart'}</p>, <img key={"."} src={cart} alt="cart"/>]}
+              children={[<p key={''}>{productInCard ? 'Remove From Cart' : 'Add To Cart'}</p>, <AddToCartSVG/>]}
               mode={"cart-description"}
             />
           </div>

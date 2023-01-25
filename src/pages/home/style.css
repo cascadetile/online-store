@@ -38,8 +38,9 @@
   align-items: center;
 }
 
-.label-filter > img {
+.label-filter > svg {
   position: absolute;
+  top: 3px;
   right: 10px;
   width: 22px;
   height: 22px;

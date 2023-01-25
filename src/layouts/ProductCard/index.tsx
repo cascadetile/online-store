@@ -5,7 +5,6 @@ import { addToCart, deleteFromCart, getCartProducts } from 'store/slices/cart.sl
 
 import './style.css';
 
-import cart from 'assets/add-to-cart.svg';
 import { initialState } from 'store/database/products';
 import { Button } from 'components/Button';
 import { colorGray, colorRed } from 'utils/colors';
@@ -13,6 +12,7 @@ import { ICartInterface } from 'interface';
 import { ImageBlock } from 'components/ImageBlock';
 import { Header2 } from 'components/Header2';
 import { TextLine } from 'components/TextLine';
+import { AddToCartSVG } from 'assets/AddToCartSVG';
 
 export const ProductCard: React.FC<ICartInterface> = ({id, title, category, brand, price, stock, discountPercentage, mode}) => {
 
@@ -43,7 +43,7 @@ export const ProductCard: React.FC<ICartInterface> = ({id, title, category, bran
       <Button
         fn={() => addToCartHandler(product)}
         style={{background: `${productInCard ? colorGray : colorRed}`}}
-        children={[<img key={cart} src={cart} alt="cart"/>, (mode === 'column') ? <p key={price}>${price}</p> : <></>]}
+        children={[<AddToCartSVG/>, (mode === 'column') ? <p key={''}>${price}</p> : <></>]}
         mode={mode}
       />
     </div>

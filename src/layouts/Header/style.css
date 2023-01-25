@@ -49,6 +49,10 @@
   cursor: pointer;
 }
 
+.cart-button > svg {
+  transform: scale(1.2);
+}
+
 .cart-text {
   font-family: 'Jaldi', sans-serif;
   font-weight: 400;

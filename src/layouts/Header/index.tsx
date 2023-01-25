@@ -5,8 +5,8 @@ import { useAppSelector } from 'store/store.hooks';
 
 import './style.css';
 
-import logo from 'assets/logo.svg';
-import cart from 'assets/cart.svg';
+import { CartImg } from 'assets/CartImg';
+import { Logo } from 'assets/Logo';
 
 export const Header: React.FC = () => {
 
@@ -18,12 +18,12 @@ export const Header: React.FC = () => {
   return(
     <header className='header'>
       <Link className='store-link' to={"/"}>
-        <img className='store-logo' src={logo} alt="online store logo" />
+        <Logo/>
         <p className='store-text'>online store</p>
       </Link>
       <Link className='cart-link' to={"/cart"}>
         <button className='cart-button'>
-          <img className='cart-logo' src={cart} alt="cart logo" />
+          <CartImg/>
           <p className='cart-text'>{itemsInCart}, ${totalPrice}</p>
         </button>
       </Link>
