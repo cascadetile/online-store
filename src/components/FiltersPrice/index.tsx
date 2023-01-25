@@ -1,18 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { setPriceRange } from 'store/slices/filters.slice';
-import './style.css';
-import { IProduct } from 'interface';
+
+import { IFiltersPrice } from 'interface';
 import { RangeSort } from 'layouts/RangeSort';
 
-interface Props {
-  unfilteredProducts: IProduct[]
-  isResetPrice: boolean
-  setIsResetPrice: React.Dispatch<React.SetStateAction<boolean>>
-}
+import './style.css';
 
-export const FiltersPrice: React.FC<Props> = ({unfilteredProducts, isResetPrice, setIsResetPrice}) => {
+export const FiltersPrice: React.FC<IFiltersPrice> = ({unfilteredProducts, isResetPrice, setIsResetPrice}) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();

@@ -1,6 +1,7 @@
 import React from 'react';
-import './style.css';
 import { PromocodeBlock } from 'layouts/PromocodeBlock';
+
+import './style.css';
 
 interface Props {
   activeRS: boolean

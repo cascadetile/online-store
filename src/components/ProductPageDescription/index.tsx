@@ -1,12 +1,9 @@
+import React from 'react';
 import { IProduct } from 'interface';
-import React, { useRef } from 'react';
+
 import './style.css';
 
-interface Props {
-  product: IProduct
-}
-
-export const ProductPageDescription: React.FC<Props> = ({product}) => {
+export const ProductPageDescription: React.FC<{product: IProduct}> = ({product}) => {
   return <div className='product__item-description item-text'>
     <h2>{product.title}</h2>
     <p>Category: <span>{product.category}</span></p>

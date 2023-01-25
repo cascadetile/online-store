@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { useAppDispatch } from 'store/store.hooks';
-import './style.css';
-import { IProduct } from 'interface';
+import { IFiltersSort } from 'interface';
+
 import { SelectSort } from 'layouts/SelectSort';
 import { sortProducts } from 'store/slices/products.slice';
 
-interface Props {
-  isResetSort: boolean
-  setIsResetSort: React.Dispatch<React.SetStateAction<boolean>>
-}
+import './style.css';
 
-export const FiltersSort: React.FC<Props> = ({isResetSort, setIsResetSort}) => {
+export const FiltersSort: React.FC<IFiltersSort> = ({isResetSort, setIsResetSort}) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();

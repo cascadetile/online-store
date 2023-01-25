@@ -1,5 +1,5 @@
-import { ISelectSort } from "interface";
 import React from "react";
+import { ISelectSort } from "interface";
 
 import './style.css';
 

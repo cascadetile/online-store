@@ -1,15 +1,13 @@
-import { IProduct } from 'interface';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { IProduct } from 'interface';
+
 import { useAppDispatch } from 'store/store.hooks';
 import { resetFilters } from 'store/slices/filters.slice';
-import { Link } from 'react-router-dom';
+
 import './style.css';
 
-interface Props {
-  product: IProduct
-}
-
-export const ProductPageBreadcrumbs: React.FC<Props> = ({product}) => {
+export const ProductPageBreadcrumbs: React.FC<{product: IProduct}> = ({product}) => {
   const dispatch = useAppDispatch();
 
   return <div className='breadcrumps'>

@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFormik } from "formik";
-import './style.css';
+import { useFormik } from 'formik';
+
 import { deleteFromCart, getCartProducts } from 'store/slices/cart.slice';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { IForm } from 'interface';
+
 import { validationSchema } from './validationSchema';
 import { identifyCreditCard } from 'utils/functions';
 import { FormElement } from './FormElement';
 import { keyDownHandler, addSlash } from './utils';
+
+import './style.css';
 
 export const PurchaseForm: React.FC<IForm> = ({onSetModalVisibility}) => {
   const [isSuccess, setSuccess] = useState(false);

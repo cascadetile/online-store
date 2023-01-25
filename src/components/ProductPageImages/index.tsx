@@ -1,12 +1,9 @@
-import { IProduct } from 'interface';
 import React, { useRef } from 'react';
+import { IProduct } from 'interface';
+
 import './style.css';
 
-interface Props {
-  product: IProduct
-}
-
-export const ProductPageImages: React.FC<Props> = ({product}) => {
+export const ProductPageImages: React.FC<{product: IProduct}> = ({product}) => {
   const ref = useRef<HTMLImageElement>(null);
 
   const changeImg = (item: string) => {

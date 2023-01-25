@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import { initialState } from 'store/database/products';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { brandHandler } from 'store/slices/filters.slice';
 import { setBrands } from 'store/slices/filters.slice';
-import './style.css';
 import { IProduct } from 'interface';
+import { initialState } from 'store/database/products';
 
-interface Props {
-  products: IProduct[]
-}
+import './style.css';
 
-export const FiltersBrands: React.FC<Props> = ({products}) => {
+export const FiltersBrands: React.FC<{products: IProduct[]}> = ({products}) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();

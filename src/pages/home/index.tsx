@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Filters } from 'layouts/Filters'; 
+
 import { getProductsSelector } from 'store/slices/products.slice'; 
-import { ProductCard } from 'layouts/ProductCard'; 
-
-import './style.css';
-
-import search from 'assets/search.svg';
 import { setValueChange } from 'store/slices/filters.slice';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
+
 import { Search } from 'assets/Search';
+import { ProductCard } from 'layouts/ProductCard'; 
+import { Filters } from 'layouts/Filters'; 
+
+import './style.css';
 
 export function returnDisplayModeStyle (displayMode: string) {
   if (displayMode === 'rows') {

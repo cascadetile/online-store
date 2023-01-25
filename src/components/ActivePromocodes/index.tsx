@@ -1,18 +1,11 @@
 import React from 'react';
-import './style.css';
 import { PromocodeBlock } from 'layouts/PromocodeBlock';
 import { Header2 } from 'components/Header2';
+import { IActivePromocodes } from 'interface';
 
-interface Props {
-  activeRS: boolean
-  activeTA: boolean
-  discount: number,
-  setDiscount: React.Dispatch<React.SetStateAction<number>>
-  setActiveTA: React.Dispatch<React.SetStateAction<boolean>>
-  setActiveRS: React.Dispatch<React.SetStateAction<boolean>>
-}
+import './style.css';
 
-export const ActivePromocodes: React.FC<Props> = ({activeRS, activeTA, setDiscount, setActiveRS, setActiveTA, discount}) => {
+export const ActivePromocodes: React.FC<IActivePromocodes> = ({activeRS, activeTA, setDiscount, setActiveRS, setActiveTA, discount}) => {
   return <>
     {/* Active promocodes */}
       {/* If at least one promocode is active, show their wrapper */}
