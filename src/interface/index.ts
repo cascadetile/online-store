@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface ICartInterface {
   id: number,
   thumbnail: string,
@@ -79,4 +81,42 @@ export interface IRangeSort {
 export interface IBreadcrumps {
   fn: () => void,
   product: IProduct
+}
+
+export interface IFiltersStock {
+  unfilteredProducts: IProduct[]
+  isResetStock: boolean
+  setIsResetStock: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export interface IFiltersSort {
+  isResetSort: boolean
+  setIsResetSort: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export interface IFiltersPrice {
+  unfilteredProducts: IProduct[]
+  isResetPrice: boolean
+  setIsResetPrice: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export interface ICartPaginationButtons {
+  page: number,
+  maxPageNumber: number
+  setPage: React.Dispatch<React.SetStateAction<number>>
+}
+
+export interface ICartItemsWrapper {
+  firstContentIndex: number,
+  lastContentIndex: number,
+  cartProducts: IProduct[]
+}
+
+export interface IActivePromocodes {
+  activeRS: boolean
+  activeTA: boolean
+  discount: number,
+  setDiscount: React.Dispatch<React.SetStateAction<number>>
+  setActiveTA: React.Dispatch<React.SetStateAction<boolean>>
+  setActiveRS: React.Dispatch<React.SetStateAction<boolean>>
 }

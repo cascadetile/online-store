@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import { useAppDispatch } from 'store/store.hooks';
 import { getProductsSelector, getUnfilteredProducts } from 'store/slices/products.slice';
 import { resetFilters } from 'store/slices/filters.slice';
-import './style.css';
+
 import { Button } from 'components/Button';
 import { FiltersBrands } from 'components/FiltersBrands';
 import { FiltersCategories } from 'components/FiltersCategories';
 import { FiltersPrice } from 'components/FiltersPrice';
 import { FiltersStock } from 'components/FiltersStock';
 import { FiltersSort } from 'components/FiltersSort';
+
+import './style.css';
 
 export const Filters: React.FC = () => {
   const dispatch = useAppDispatch();

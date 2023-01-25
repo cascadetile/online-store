@@ -17,7 +17,7 @@ const filtersSlice = createSlice({
                     state.brands.push(action.payload.brand)
                 }
             } else {
-                let index = state.brands.indexOf(action.payload.brand);
+                const index = state.brands.indexOf(action.payload.brand);
                 if (index !== -1) {
                     state.brands.splice(index, 1);
                 }
@@ -29,7 +29,7 @@ const filtersSlice = createSlice({
                     state.categories.push(action.payload.category)
                 }
             } else {
-                let index = state.categories.indexOf(action.payload.category);
+                const index = state.categories.indexOf(action.payload.category);
                 if (index !== -1) {
                     state.categories.splice(index, 1);
                 }

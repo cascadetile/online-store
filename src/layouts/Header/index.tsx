@@ -3,10 +3,10 @@ import {Link} from 'react-router-dom';
 import { getCartProducts, getTotalPrice } from 'store/slices/cart.slice';
 import { useAppSelector } from 'store/store.hooks';
 
-import './style.css';
-
 import { CartImg } from 'assets/CartImg';
 import { Logo } from 'assets/Logo';
+
+import './style.css';
 
 export const Header: React.FC = () => {
 

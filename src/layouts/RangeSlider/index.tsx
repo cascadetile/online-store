@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
+
 import { useAppDispatch } from 'store/store.hooks';
 import { setPriceRange, setStockRange } from 'store/slices/filters.slice';
 import { ISliderProps } from 'interface';

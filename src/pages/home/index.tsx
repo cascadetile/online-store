@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Filters } from 'layouts/Filters'; 
+
 import { getProductsSelector } from 'store/slices/products.slice'; 
-import { ProductCard } from 'layouts/ProductCard'; 
-
-import './style.css';
-
-import search from 'assets/search.svg';
 import { setValueChange } from 'store/slices/filters.slice';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
+
 import { Search } from 'assets/Search';
+import { ProductCard } from 'layouts/ProductCard'; 
+import { Filters } from 'layouts/Filters'; 
+
+import './style.css';
 
 export function returnDisplayModeStyle (displayMode: string) {
   if (displayMode === 'rows') {
     return 'row';
   }
   return 'column';
-};
+}
 
 export const Home = () => {
   const dispatch = useAppDispatch();
@@ -44,13 +44,13 @@ export const Home = () => {
 
   useEffect(() => {
     if (queryParams.get('search')) {
-      let search = queryParams.get('search');
+      const search = queryParams.get('search');
       if (search) {
         dispatch(setValueChange([search]));
       }
     }
     if (queryParams.get('display')) {
-      let display = queryParams.get('display');
+      const display = queryParams.get('display');
       if (display) {
         setDisplayMode(display);
       }

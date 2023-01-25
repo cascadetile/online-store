@@ -1,9 +1,7 @@
 import React from 'react';
-import { IProduct } from 'interface';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { addToCart, deleteFromCart, getCartProducts } from 'store/slices/cart.slice';
-
-import './style.css';
+import { IProduct } from 'interface';
 
 import { initialState } from 'store/database/products';
 import { Button } from 'components/Button';
@@ -13,6 +11,8 @@ import { ImageBlock } from 'components/ImageBlock';
 import { Header2 } from 'components/Header2';
 import { TextLine } from 'components/TextLine';
 import { AddToCartSVG } from 'assets/AddToCartSVG';
+
+import './style.css';
 
 export const ProductCard: React.FC<ICartInterface> = ({id, title, category, brand, price, stock, discountPercentage, mode}) => {
 

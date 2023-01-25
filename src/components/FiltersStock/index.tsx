@@ -1,18 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { setStockRange } from 'store/slices/filters.slice';
-import './style.css';
-import { IProduct } from 'interface';
+import { IFiltersStock } from 'interface';
+
 import { RangeSort } from 'layouts/RangeSort';
 
-interface Props {
-  unfilteredProducts: IProduct[]
-  isResetStock: boolean
-  setIsResetStock: React.Dispatch<React.SetStateAction<boolean>>
-}
+import './style.css';
 
-export const FiltersStock: React.FC<Props> = ({unfilteredProducts, isResetStock, setIsResetStock}) => {
+export const FiltersStock: React.FC<IFiltersStock> = ({unfilteredProducts, isResetStock, setIsResetStock}) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,9 +22,9 @@ export const FiltersStock: React.FC<Props> = ({unfilteredProducts, isResetStock,
 
   useEffect(() => {
     if (queryParams.get('stock')) {
-      let stock = queryParams.get('stock');
+      const stock = queryParams.get('stock');
       if (stock) {
-        let stockArr = stock.split('-').map((elem) => Number(elem));
+        const stockArr = stock.split('-').map((elem) => Number(elem));
         setStockValue(stockArr);
         dispatch(setStockRange(stockArr));
       }

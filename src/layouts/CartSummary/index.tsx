@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+
 import { getCartProducts, getTotalPrice } from 'store/slices/cart.slice';
 import { useAppSelector } from 'store/store.hooks';
+
 import { PurchaseForm } from 'layouts/PurchaseForm';
 import { Header2 } from 'components/Header2';
 import { TextLine } from 'components/TextLine';
@@ -9,6 +11,7 @@ import { colorRed } from 'utils/colors';
 import { Button } from 'components/Button';
 import { ActivePromocodes } from 'components/ActivePromocodes';
 import { SuggestedPromocodes } from 'components/SuggestedPromocodes';
+
 import './style.css';
 
 const TA = localStorage.getItem('activeTA') ? JSON.parse(localStorage['activeTA']) : false;

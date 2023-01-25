@@ -1,20 +1,20 @@
 import React from 'react';
-import { IProduct } from 'interface'; 
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store/store.hooks';
 import { addToCart, deleteFromCart, getCartProducts } from 'store/slices/cart.slice';
+import { resetFilters } from 'store/slices/filters.slice';
+import { IProduct } from 'interface'; 
 import { initialState } from 'store/database/products';
-import { useNavigate, useParams } from 'react-router-dom';
 
-import './style.css';
-import cart from 'assets/add-to-cart.svg';
 import { Breadcrumps } from 'layouts/Breadcrumps';
 import { Header2 } from 'components/Header2';
 import { TextLine } from 'components/TextLine';
 import { Button } from 'components/Button';
 import { colorGray, colorRed } from 'utils/colors';
-import { resetFilters } from 'store/slices/filters.slice';
 import { ProductPageImages } from 'components/ProductPageImages';
 import { AddToCartSVG } from 'assets/AddToCartSVG';
+
+import './style.css';
 
 export const ProductPage: React.FC = () => {
   const dispatch = useAppDispatch();
