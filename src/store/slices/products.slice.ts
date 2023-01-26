@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'store/store';
 import { initialState } from 'store/database/products';
-import { IProduct } from 'store/interface/IProduct';
+import { IProduct } from 'interface';
 
 const productsSlice = createSlice({
   name: "products",
@@ -12,9 +12,6 @@ const productsSlice = createSlice({
     },
     sortProducts: (state, action: PayloadAction<string>) => {
       switch(action.payload) {
-        case 'choose sort': 
-          return initialState;
-          break;
         case 'big ratings first':
           state.sort((a, b) => b.rating - a.rating);
           break;
@@ -43,7 +40,7 @@ const productsSlice = createSlice({
 
 export const { addProduct, sortProducts } = productsSlice.actions;
 
-let filteredProducts = (state: RootState) => {
+const filteredProducts = (state: RootState) => {
   const hasRange = state.filters.priceRange.length && state.filters.priceRange[1] !== 0;
   const hasStockRange = state.filters.stockRange.length && state.filters.stockRange[1] !== 0;
   const hasBrands = state.filters.brands.length;

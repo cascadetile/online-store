@@ -1,4 +1,4 @@
-import { IProduct } from "store/interface/IProduct";
+import { IProduct } from "interface";
 
 export const initialState: IProduct[] = [
   {

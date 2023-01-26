@@ -1,0 +1,22 @@
+.text-line {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: #000;
+}
+
+.text-line > span {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: #7e7e7e;
+}
+
+.text-line.page {
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.text-line.page > span {
+  font-size: 1.4rem;
+}

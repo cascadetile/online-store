@@ -1,0 +1,17 @@
+.product__item-img {
+  order: 0;
+  width: 12vw;
+  height: 12vw;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.product__item-link,
+.product__item-link > img {
+  max-width: 12vw;
+  max-height: 12vw;
+}
